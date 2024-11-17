@@ -8,10 +8,10 @@ export class CatalogRepository implements ICatalogRepository {
   update(data: Product): Promise<Product> {
     throw new Error("Method not implemented.");
   }
-  delete(id: any): Promise<void> {
+  delete(id: any): Promise<any> {
     throw new Error("Method not implemented.");
   }
-  find(): Promise<Product[]> {
+  find(limit: number, offset: number): Promise<Product[]> {
     throw new Error("Method not implemented.");
   }
   findOne(id: number): Promise<Product> {
