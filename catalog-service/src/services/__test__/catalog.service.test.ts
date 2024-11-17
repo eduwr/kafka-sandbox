@@ -5,13 +5,7 @@ import { MockCatalogRepository } from "../../repository/mockCatalog.repository";
 import { CatalogService } from "../catalog.service";
 
 import { faker } from "@faker-js/faker";
-
-const productFactory = new Factory<Product>()
-  .attr("id", () => faker.number.int({ min: 1 }))
-  .attr("name", () => faker.commerce.productName())
-  .attr("description", () => faker.commerce.productDescription())
-  .attr("stock", () => faker.number.int({ min: 100, max: 1000 }))
-  .attr("price", () => faker.number.int({ min: 10, max: 2000 }));
+import { ProductFactory } from "../../utils/fixtures";
 
 const mockProduct = (rest?: any) => ({
   name: faker.commerce.productName(),
@@ -105,7 +99,7 @@ describe("CatalogService", () => {
 
       const limit = faker.number.int({ min: 10, max: 50 });
 
-      const products = productFactory.buildList(limit);
+      const products = ProductFactory.buildList(limit);
 
       jest.spyOn(repository, "find").mockImplementationOnce(async () => {
         return products;
@@ -119,7 +113,7 @@ describe("CatalogService", () => {
   describe("getProduct", () => {
     it("should return product by id", async () => {
       const service = new CatalogService(repository);
-      const product = productFactory.build();
+      const product = ProductFactory.build();
 
       jest.spyOn(repository, "findOne").mockImplementationOnce(async () => {
         return product;
@@ -132,7 +126,7 @@ describe("CatalogService", () => {
   describe("deleteProduct", () => {
     it("should delete product by id", async () => {
       const service = new CatalogService(repository);
-      const product = productFactory.build();
+      const product = ProductFactory.build();
 
       jest.spyOn(repository, "delete").mockImplementationOnce(async () => {
         return { id: product.id };
